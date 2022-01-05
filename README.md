@@ -1,4 +1,4 @@
-# An example of a React app with Python's Flask powering the backend
+# React app with Flask delivering JWT for user auth
 
 * JWT implementation
 * Automatic Access Token refresh with a wrapper for axios
