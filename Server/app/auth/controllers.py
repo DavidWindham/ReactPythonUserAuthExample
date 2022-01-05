@@ -50,6 +50,7 @@ def refresh_access_token():
 @auth.route('/logout')
 @auth_conf.login_required
 def logout():
+    # TODO: Implement a logout, force expire the tokens server side
     return "Logout"
 
 
