@@ -1,5 +1,7 @@
 # React app with Flask delivering JWT for user auth
 
+Features:
+
 * JWT implementation
 * Automatic Access Token refresh with a wrapper for axios
 * TokenStorage class to handle JWT's
