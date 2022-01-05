@@ -27,7 +27,7 @@ npm start
 Install pre-requisites with the following command
 
 ```
-pip -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Use the following to setup the flask environment
