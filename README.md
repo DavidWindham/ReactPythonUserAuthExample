@@ -1,4 +1,6 @@
-# An example of a React app with Python's Flask powering the backend
+# React app with Flask delivering JWT for user auth
+
+Features:
 
 * JWT implementation
 * Automatic Access Token refresh with a wrapper for axios
@@ -25,7 +27,7 @@ npm start
 Install pre-requisites with the following command
 
 ```
-pip -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Use the following to setup the flask environment
