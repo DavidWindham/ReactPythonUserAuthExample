@@ -6,7 +6,7 @@ from flask import g
 
 
 class User(db.Model):
-    __tablename__ = 'user'
+    __tablename__ = "user"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True)
@@ -16,7 +16,7 @@ class User(db.Model):
 
     @property
     def password(self):
-        raise AttributeError('Password is not a readable attribute')
+        raise AttributeError("Password is not a readable attribute")
 
     @password.setter
     def password(self, password):
@@ -43,7 +43,7 @@ class User(db.Model):
 
         if "username" and "email" in data:
             g.user = data["username"]
-            g.email = data['email']
+            g.email = data["email"]
             return True
 
         return False
