@@ -56,18 +56,12 @@ def logout():
 
 @auth.route("/register", methods=["POST"])
 def register():
-    print("Register called")
     username = request.json.get("username")
-    if username == "fail":
-        print("In here")
-        abort(400, "This shoulda failed")
-    print(username)
     password = request.json.get("password")
     email = request.json.get("email")
     nickname = request.json.get("nickname")
 
     if username == "" or password == "" or email == "" or nickname == "":
-        print("Something was missing")
         abort(400)
 
     u = User()
