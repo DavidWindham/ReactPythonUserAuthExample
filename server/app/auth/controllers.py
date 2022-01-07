@@ -42,7 +42,9 @@ def refresh_access_token():
         print("Errored on refresh token", why)
         abort(400)
 
-    blacklist_token_check = RefreshTokenBlacklist.query.filter_by(refresh_token=refresh_token).first()
+    blacklist_token_check = RefreshTokenBlacklist.query.filter_by(
+        refresh_token=refresh_token
+    ).first()
 
     if blacklist_token_check is not None:
         abort(400, "Token has been invalidated")
@@ -56,7 +58,9 @@ def refresh_access_token():
 @auth_conf.login_required()
 def logout():
     refresh_token = request.headers.get("RefreshToken")
-    token_blacklist_if_already_blacklisted = RefreshTokenBlacklist.query.filter_by(refresh_token=refresh_token).first()
+    token_blacklist_if_already_blacklisted = RefreshTokenBlacklist.query.filter_by(
+        refresh_token=refresh_token
+    ).first()
 
     # If token is already been placed on blacklist
     if token_blacklist_if_already_blacklisted is not None:
