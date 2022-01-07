@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { login } from "../services/user.service";
 
 export default class LoginForm extends React.Component {

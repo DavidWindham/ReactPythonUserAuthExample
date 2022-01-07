@@ -47,3 +47,9 @@ class User(db.Model):
             return True
 
         return False
+
+
+class RefreshTokenBlacklist(db.Model):
+    __tablename__ = "refresh_token_blacklist"
+    id = db.Column(db.Integer, primary_key=True)
+    refresh_token = db.Column(db.String(255))

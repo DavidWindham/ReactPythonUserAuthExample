@@ -1,6 +1,6 @@
 from . import auth
 from .. import db
-from .models import User
+from .models import User, RefreshTokenBlacklist
 from flask import request, abort
 from .conf import refresh_jwt, auth_conf
 
@@ -42,16 +42,31 @@ def refresh_access_token():
         print("Errored on refresh token", why)
         abort(400)
 
+    blacklist_token_check = RefreshTokenBlacklist.query.filter_by(refresh_token=refresh_token).first()
+
+    if blacklist_token_check is not None:
+        abort(400, "Token has been invalidated")
+
     user = User(username=data["username"])
     refreshed_access_token = user.generate_auth_token()
     return {"access_token": refreshed_access_token.decode()}
 
 
-@auth.route("/logout")
-@auth_conf.login_required
+@auth.route("/logout", methods=["GET"])
+@auth_conf.login_required()
 def logout():
-    # TODO: Implement a logout, force expire the tokens server side
-    return "Logout"
+    refresh_token = request.headers.get("RefreshToken")
+    token_blacklist_if_already_blacklisted = RefreshTokenBlacklist.query.filter_by(refresh_token=refresh_token).first()
+
+    # If token is already been placed on blacklist
+    if token_blacklist_if_already_blacklisted is not None:
+        abort(400, "Token already invalidated")
+
+    blacklist_refresh_token = RefreshTokenBlacklist(refresh_token=refresh_token)
+
+    db.session.add(blacklist_refresh_token)
+    db.session.commit()
+    return {"status": "Token has been invalidated"}
 
 
 @auth.route("/register", methods=["POST"])

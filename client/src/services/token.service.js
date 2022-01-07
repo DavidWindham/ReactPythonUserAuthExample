@@ -19,6 +19,15 @@ export class TokenStorage {
       };
     }
 
+    static getAuthenticationAndRefresh(){
+      return {
+        headers: {
+          Authorization: `Bearer ${this.getToken()}`,
+          RefreshToken: `${this.getRefreshToken()}`,
+        },
+      };
+    }
+
     static getNewToken() {
       this.unload_old_access_token();
       return new Promise((resolve, reject) => {
@@ -67,6 +76,7 @@ export class TokenStorage {
       localStorage.removeItem("auth_bearer_token");
       localStorage.removeItem("auth_bearer_refresh_token");
       this.TOKEN = null;
+      this.REFRESH_TOKEN = null;
     }
 
     static getToken() {
