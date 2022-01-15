@@ -15,7 +15,7 @@ export const register = (userObj) =>
         console.log('Error caught in register: ', error);
       });
 
-export const login = (userObj) =>
+export const login = (userObj, callback) =>
   Axios
       .post(
           'login',
@@ -23,13 +23,13 @@ export const login = (userObj) =>
       )
       .then((res)=>{
         TokenStorage.storeTokens(res.data);
+        callback();
       })
       .catch((error) => {
         console.log(error);
       });
 
-export const logout = () => {
-  console.log('Logout getAuth here', TokenStorage.getAuthentication());
+export const logout = (callback) =>
   Axios
       .get(
           'logout',
@@ -39,11 +39,11 @@ export const logout = () => {
       )
       .then((res) => {
         TokenStorage.clear();
+        dispatch(setUser(null));
       })
       .catch((error) => {
         console.log(error);
       });
-};
 
 export const protectedRoute = (successCallback, failCallback) =>
   Axios

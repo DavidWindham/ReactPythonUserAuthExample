@@ -7,6 +7,7 @@ export default class Logout extends React.Component {
   }
 
   logoutUser() {
+    //logout(this.props.onLogout);
     logout();
   }
 

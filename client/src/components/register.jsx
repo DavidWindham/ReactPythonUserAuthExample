@@ -1,11 +1,12 @@
 import React from 'react';
 import {register} from '../services/user.service';
+import PropTypes from 'prop-types'
 
 
-export default class RegisterForm extends React.Component {
+export default class RegisterComponent extends React.Component {
   constructor(props) {
     super(props);
-
+    this.login_value = this.props.login_value;
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeNickname = this.onChangeNickname.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
@@ -54,9 +55,11 @@ export default class RegisterForm extends React.Component {
   }
 
   render() {
+    const { login_value } = this.props;
     return (
       <div>
         <h1>Register</h1>
+        <h2>Test value: {login_value} END</h2>
         <input placeholder="Username..." type="text"
           onChange={this.onChangeUsername} />
         <input placeholder="Nickname..." type="text"
@@ -69,4 +72,8 @@ export default class RegisterForm extends React.Component {
       </div>
     );
   }
+}
+
+RegisterComponent.propTypes = {
+  login_value: PropTypes.number.isRequired
 }
