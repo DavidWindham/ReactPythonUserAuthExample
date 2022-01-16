@@ -1,7 +1,6 @@
 import React from 'react';
 import {protectedRoute} from '../services/user.service';
 
-
 export default class ProtectedButton extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +31,7 @@ export default class ProtectedButton extends React.Component {
   render() {
     return (
       <div>
-        <h1>Protected</h1>
+        <h3>Click the protected button below to test login status</h3>
         <button onClick={() => this.callProtectedRoute()}
           style={{'backgroundColor': this.state.buttonColor}}>
           Call Protected Route

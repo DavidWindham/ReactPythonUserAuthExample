@@ -2,14 +2,14 @@ import Axios from './axios.service';
 import TokenStorage from './token.service';
 
 
-export const register = (userObj) =>
+export const register = (userObj, callback) =>
   Axios
       .post(
           'register',
           userObj,
       )
       .then((res)=>{
-        login(userObj);
+        login(userObj, callback);
       })
       .catch((error) => {
         console.log('Error caught in register: ', error);
@@ -39,7 +39,7 @@ export const logout = (callback) =>
       )
       .then((res) => {
         TokenStorage.clear();
-        dispatch(setUser(null));
+        callback();
       })
       .catch((error) => {
         console.log(error);

@@ -1,3 +1,8 @@
 .App {
   text-align: center;
 }
+
+.login_register_logout_parent{
+  background-color:burlywood;
+  padding: 1rem;
+}

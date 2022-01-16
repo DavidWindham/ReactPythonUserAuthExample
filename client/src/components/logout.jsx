@@ -1,22 +1,24 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import {logout} from '../services/user.service';
+import {setUser} from '../actions';
 
-export default class Logout extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function Logout() {
+  const dispatch = useDispatch();
 
-  logoutUser() {
-    //logout(this.props.onLogout);
-    logout();
-  }
+  const logoutUser = () => {
+    logout(changeToRegister);
+  };
 
-  render() {
-    return (
-      <div>
-        <h1>Logout</h1>
-        <button onClick={() => this.logoutUser()}>Logout</button>
-      </div>
-    );
-  }
+  const changeToRegister = () => {
+    dispatch(setUser(null));
+  };
+
+  return (
+    <div>
+      <button onClick={() => logoutUser()}>Logout</button>
+    </div>
+  );
 }
+
+export default Logout;

@@ -7,15 +7,16 @@ import './App.css';
 // import LoginForm from './components/login';
 // import ProtectedButton from './components/query_protected';
 // import Logout from './components/logout';
-import LoginComponent from './components/login';
-import LoginFormComponent from './components/login_register';
+// import LoginComponent from './components/login';
+// import LoginFormComponent from './components/login_register';
 import UserStateComponent from './components/user_state';
 import ProtectedButton from './components/query_protected';
+import LoginLogoutParent from './components/login_parent';
 
 function App() {
   return (
     <div className="App">
-      <LoginFormComponent />
+      <LoginLogoutParent />
       <UserStateComponent />
       <ProtectedButton />
     </div>
