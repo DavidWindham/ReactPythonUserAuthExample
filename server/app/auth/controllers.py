@@ -92,7 +92,13 @@ def register():
     db.session.add(u)
     db.session.commit()
 
-    return "Register"
+    access_token = u.generate_auth_token()
+    refresh_token = refresh_jwt.dumps({"username": username})
+
+    return {
+        "access_token": access_token.decode(),
+        "refresh_token": refresh_token.decode(),
+    }
 
 
 @auth.route("/protected", methods=["GET"])

@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../actions';
 import {login} from '../services/user.service';
+import TokenStorage from '../services/token.service';
+
 
 function LoginComponent() {
   const [username, setUsername] = useState('');
@@ -14,7 +16,15 @@ function LoginComponent() {
       username: username,
       password: password,
     };
-    login(userObj, setLoginSuccess);
+
+    login(userObj, setLoginSuccess)
+        .then((res)=>{
+          TokenStorage.storeTokens(res.data);
+          setLoginSuccess();
+        })
+        .catch((error) => {
+          console.log('Error caught in login: ', error);
+        }); ;
   };
 
   const setLoginSuccess = () => {

@@ -12,12 +12,13 @@ import './App.css';
 import UserStateComponent from './components/user_state';
 import ProtectedButton from './components/query_protected';
 import LoginLogoutParent from './components/login_parent';
+import { Wrapper } from './components/user_state';
 
 function App() {
   return (
     <div className="App">
       <LoginLogoutParent />
-      <UserStateComponent />
+      <Wrapper><UserStateComponent /></Wrapper>
       <ProtectedButton />
     </div>
   );

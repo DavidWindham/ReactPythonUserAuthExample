@@ -11,7 +11,18 @@ export default class ProtectedButton extends React.Component {
 
   callProtectedRoute() {
     this.setButtonNeutral();
-    protectedRoute(this.setButtonSuccess, this.setButtonFail);
+    protectedRoute(this.setButtonSuccess, this.setButtonFail)
+        .then((res) => {
+          // If 401, this fails triggering the error catch
+          if (typeof res !== 'undefined') {
+            this.setButtonSuccess();
+          } else {
+            this.setButtonFail();
+          }
+        })
+        .catch((error) => {
+          console.log('Error on protected route: ', error);
+        });
   }
 
   setButtonNeutral = () => {

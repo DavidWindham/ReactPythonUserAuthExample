@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {register} from '../services/user.service';
 import {useDispatch} from 'react-redux';
 import {setUser} from '../actions';
+import TokenStorage from '../services/token.service';
+
 
 function RegisterComponent() {
   const [username, setUsername] = useState('');
@@ -18,7 +20,15 @@ function RegisterComponent() {
       password: password,
       email: email,
     };
-    register(userObj, setLoginSuccess);
+
+    register(userObj)
+        .then((res)=>{
+          TokenStorage.storeTokens(res.data);
+          setLoginSuccess();
+        })
+        .catch((error) => {
+          console.log('Error caught in register: ', error);
+        }); ;
   };
 
   const setLoginSuccess = () => {
