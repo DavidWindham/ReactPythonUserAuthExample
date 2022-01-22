@@ -8,6 +8,7 @@
   height: 20vh;
 }
 
+/* Login/Register grid */
 .grid_container{
   display: grid;
 }
@@ -17,7 +18,7 @@
   grid-row: 1;
 }
 
-/* Fade */
+/* Transition - Fade */
 .fade-enter {
   opacity: 0.01;
 }
@@ -36,9 +37,7 @@
   transition: opacity 300ms ease-in;
 }
 
-
-
-/* Slide from/to left */
+/* Transition - Slide from/to left */
 .slide-left-enter {
   transform: translate(-30vh, 0);
   opacity: 0.01;
@@ -61,9 +60,7 @@
   transition: all 300ms ease-in;
 }
 
-
-
-/* Slide from/to right */
+/* Transition - Slide from/to right */
 .slide-right-enter {
   transform: translate(30vh, 0);
   opacity: 0.01;
