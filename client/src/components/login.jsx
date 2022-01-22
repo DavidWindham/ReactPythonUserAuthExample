@@ -32,7 +32,7 @@ function LoginComponent() {
   };
 
   return (
-    <div>
+    <div className="login_register">
       <input placeholder="Username..."
         defaultValue={username}
         onChange={(e) => setUsername(e.target.value)} type="text"

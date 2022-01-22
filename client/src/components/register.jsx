@@ -36,7 +36,7 @@ function RegisterComponent() {
   };
 
   return (
-    <div>
+    <div className='login_register'>
       <input placeholder="Username..." type="text"
         defaultValue={username}
         onChange={(e) => setUsername(e.target.value)} />

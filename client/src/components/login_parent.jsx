@@ -9,11 +9,13 @@ function LoginLogoutParent() {
   return (
     <div className="login_register_logout_parent">
       {user ?
-                (<Logout />) :
-                (<LoginFormComponent />)
+        (<Logout />) :
+        (<LoginFormComponent />)
       }
     </div>
   );
 }
 
 export default LoginLogoutParent;
+
+
