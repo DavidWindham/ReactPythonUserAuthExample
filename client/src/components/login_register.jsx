@@ -23,7 +23,6 @@ function LoginFormComponent() {
     <div>
       <button onClick={() => changeToLogin()}>Login</button>
       <button onClick={() => changeToRegister()}>Register</button>
-
       <div className="grid_container">
         <CSSTransition
           in={newUserState === 'LOGIN'}
