@@ -1,31 +1,31 @@
 import React from 'react'
 import {useAppDispatch} from '../../../hooks'
 import {logout} from '../../../services/user.service'
-import {setUser} from '../../../reducers/user_reducer/userSlice'
+import {logoutUser} from '../../../reducers/user_reducer/userSlice'
 import TokenStorage from '../../../services/token.service'
 
 
 function Logout() {
   const dispatch = useAppDispatch()
 
-  const logoutUser = () => {
+  const initiateLogoutUser = () => {
     logout()
         .then((res) => {
           TokenStorage.clear()
-          changeToRegister()
+          dispatchLogoutUser()
         })
         .catch((error) => {
           console.log(error)
         })
   }
 
-  const changeToRegister = () => {
-    dispatch(setUser(null))
+  const dispatchLogoutUser = () => {
+    dispatch(logoutUser())
   }
 
   return (
     <div>
-      <button onClick={() => logoutUser()}>Logout</button>
+      <button onClick={() => initiateLogoutUser()}>Logout</button>
     </div>
   )
 }

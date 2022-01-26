@@ -8,7 +8,7 @@ function UserParent() {
 
   return (
     <div className="login_register_logout_parent">
-      {user ?
+      {user.isLoggedIn ?
         (<Logout />) :
         (<LoginRegisterParentComponent />)
       }

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {protectedRoute} from '../services/user.service'
-import {setUser} from '../reducers/user_reducer/userSlice'
+import {logoutUser} from '../reducers/user_reducer/userSlice'
 import {useAppDispatch} from '../hooks'
 
 function ProtectedButton() {
@@ -16,7 +16,7 @@ function ProtectedButton() {
             setButtonSuccess()
           } else {
             setButtonFail()
-            dispatch(setUser(null))
+            dispatch(logoutUser())
           }
         })
         .catch((error) => {
