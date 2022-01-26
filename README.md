@@ -7,6 +7,7 @@ Features:
 * TokenStorage class to handle JWT's
 * State Containers with Redux for frontend functionality
 * Basic animation with react-transition-group
+* Moved to Typescript implementation, Javascript version is now depreciated in this repo
 
 ## Installation
 
