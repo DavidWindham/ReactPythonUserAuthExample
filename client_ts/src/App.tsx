@@ -1,11 +1,13 @@
 import React from 'react'
 import './App.css'
-import ReduxBoolTestComponent from './components/talk_to_bool_reducer'
+import UserParent from './components/user_handler_components/user_parent'
+import ProtectedButton from './components/protected_route'
 
 function App() {
   return (
     <div className="App">
-      <ReduxBoolTestComponent/>
+      <UserParent/>
+      <ProtectedButton/>
     </div>
   )
 }
