@@ -14,6 +14,5 @@ export const newUserSlice = createSlice({
 })
 
 export const {setLogin, setRegister} = newUserSlice.actions
-export const getNewUserState = (state:any) => state.newUserState
 
 export default newUserSlice.reducer
