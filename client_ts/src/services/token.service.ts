@@ -10,7 +10,7 @@ export interface TokenObject {
 export class TokenStorage {
   static TOKEN = localStorage.getItem('auth_bearer_token')
   static REFRESH_TOKEN = localStorage.getItem('auth_bearer_refresh_token')
-  static shouldCheckRefresh: boolean = false
+  static shouldCheckRefresh: boolean = true
 
   static setRefreshFalse() {
     this.shouldCheckRefresh = false
