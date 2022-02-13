@@ -1,7 +1,7 @@
 from . import auth
 from .. import db
 from .models import User, RefreshTokenBlacklist
-from flask import request, abort
+from flask import request, abort, g
 from .conf import refresh_jwt, auth_conf
 
 

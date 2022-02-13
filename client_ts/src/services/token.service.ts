@@ -55,7 +55,7 @@ export class TokenStorage {
           })
           .then((response) => {
             this.storeAccessToken(response.data.access_token)
-            // Changes check flag so subsequent requests will try and refresh
+            // Check flag to true so subsequent requests will try and refresh
             this.setRefreshFalse()
             resolve(response.data.access_token)
           })
