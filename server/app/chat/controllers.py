@@ -4,17 +4,27 @@ from .models import ChatItem
 from ..auth.models import User
 from ..auth.conf import auth_conf
 from flask import request, abort, g
-import datetime
-# from flask import request, abort
 from flask import jsonify
+import datetime
 
 
 @chat.route("/get_chat_items", methods=["GET"])
 @auth_conf.login_required()
 def get_chat_items():
     chat_items = ChatItem.query.order_by(ChatItem.timestamp.desc()).limit(5).all()
-    chat_items_out= [x.serialize() for x in chat_items]
+    chat_items_out = [x.serialize() for x in chat_items]
+    for chat_item in chat_items_out:
+        print(chat_item)
     return jsonify(chat_items_out)
+
+
+@chat.route("/update_chat_items", methods=["POST"])
+@auth_conf.login_required()
+def update_chat_items():
+    passed_id_list = request.json.get("id_array")
+    chat_items = ChatItem.query.order_by(ChatItem.timestamp.desc()).limit(5).all()
+    chat_items_out = [x.serialize() for x in chat_items if x.id not in passed_id_list]
+    return {"messages": chat_items_out}
 
 
 @chat.route("/submit_chat_item", methods=["POST"])
@@ -37,7 +47,7 @@ def submit_chat_item():
     db.session.add(new_chat_item)
     db.session.commit()
 
-    return 200, {"status": "success", "message": new_chat_item}
+    return {"message": new_chat_item}
 
 
 @chat.route("/get_chat_item", methods=["GET"])

@@ -23,6 +23,7 @@ Axios.interceptors.response.use((response) => response, (error) => {
       .then((token:string|unknown) => {
         const tokenString = token as string
         TokenStorage.storeAccessToken(tokenString)
+        TokenStorage.setRefreshTrue()
         const {config} = error
         config.headers.Authorization = `Bearer ${token}`
         return new Promise((resolve, reject) => {
