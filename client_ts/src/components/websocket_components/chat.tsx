@@ -3,10 +3,8 @@ import socketIOClient from 'socket.io-client'
 import {useAppSelector} from '../../hooks'
 import {updateChat} from '../../services/chat.service'
 import ChatTextInputComponent from './chat_components/text_input'
+import {chatMessageInterface} from '../../interfaces/chat.interfaces'
 
-interface chatMessageInterface {
-  [key: string]: string
-}
 
 function WebsocketChatComponent() {
   const [chatMessages, updateChatMessages]=useState<chatMessageInterface[]>([])
