@@ -90,10 +90,17 @@
   padding-right: 1em;
 }
 
-.chat-message-box {
+.chat-container {
   background-color: white;
 }
 
+.chat-message-container {
+  list-style-type:none;
+  margin: 0.3rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  background-color: aquamarine;
+}
 .chat-left {
   float: right;
 }

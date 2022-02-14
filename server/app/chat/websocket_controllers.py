@@ -15,9 +15,9 @@ def handle_message_log(message):
 
 
 @socketio.on('message_emit')
-def handle_message_emit(message):
-    print("Message emit: ", message)
-    emit('test message', {'data': {'status': 'received', 'message': message}}, broadcast=True)
+def handle_message_emit():
+    print("Message emit")
+    emit('test message', {'data': {'status': 'new message received'}}, broadcast=True)
 
 
 @socketio.on('chat_submit')

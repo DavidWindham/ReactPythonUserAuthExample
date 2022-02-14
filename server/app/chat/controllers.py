@@ -12,24 +12,31 @@ import datetime
 @auth_conf.login_required()
 def get_chat_items():
     chat_items = ChatItem.query.order_by(ChatItem.timestamp.desc()).limit(5).all()
-    chat_items_out = [x.serialize() for x in chat_items]
-    for chat_item in chat_items_out:
-        print(chat_item)
+    # Serializes the chat items, removes unserializable content
+    chat_items_out = [chat_item.serialize() for chat_item in chat_items]
+    #chat_items_out = {x.id: x.serialize() for x in chat_items}
     return jsonify(chat_items_out)
 
 
 @chat.route("/update_chat_items", methods=["POST"])
 @auth_conf.login_required()
 def update_chat_items():
+    # Retrieves list of ID's that represent the messages currently loaded for client
     passed_id_list = request.json.get("id_array")
     chat_items = ChatItem.query.order_by(ChatItem.timestamp.desc()).limit(5).all()
+    # Filters out the messages that are already present, will be costly for large number of messages
     chat_items_out = [x.serialize() for x in chat_items if x.id not in passed_id_list]
-    return {"messages": chat_items_out}
+    print(passed_id_list)
+    print(chat_items_out)
+    # chat_dict = {x.id: x.serialize() for x in chat_items if x.id not in passed_id_list}
+    # print(chat_dict)
+    return jsonify(chat_items_out)
 
 
 @chat.route("/submit_chat_item", methods=["POST"])
 @auth_conf.login_required()
 def submit_chat_item():
+    # Check likely not required, TODO: Determine removal
     if g.user is None:
         abort(400, "User is not set")
 
@@ -47,7 +54,7 @@ def submit_chat_item():
     db.session.add(new_chat_item)
     db.session.commit()
 
-    return {"message": new_chat_item}
+    return {"status": "success"}
 
 
 @chat.route("/get_chat_item", methods=["GET"])
