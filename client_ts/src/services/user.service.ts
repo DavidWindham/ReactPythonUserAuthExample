@@ -29,7 +29,6 @@ export const logout = () =>
           },
       )
 
-
 export const protectedRoute = () =>
   Axios
       .get(

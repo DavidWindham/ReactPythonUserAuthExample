@@ -32,18 +32,16 @@ function WebsocketChatComponent() {
     updateChatMessages(concatArray)
     const idList:number[] = []
     chatItems.forEach(function(message: any) {
-      if (message.id != 14) {
-        idList.push(message.id)
-      }
+      idList.push(message.id)
     })
     updateChatIDs(idList)
   }
 
   function filterDuplicates(chatItems:chatMessageInterface[]) {
-    const filteredArray = chatItems.filter((value, index) => {
-      const _value = JSON.stringify(value)
-      return index === chatItems.findIndex((obj) => {
-        return JSON.stringify(obj) === _value
+    const filteredArray = chatItems.filter((message, idx) => {
+      const jsonValue = JSON.stringify(message)
+      return idx === chatItems.findIndex((locMessage) => {
+        return JSON.stringify(locMessage) === jsonValue
       })
     })
     return filteredArray
