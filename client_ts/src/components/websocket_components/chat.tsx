@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import socketIOClient from 'socket.io-client'
 import {useAppSelector} from '../../hooks'
-// import {submitChat, getChat, updateChat} from '../../services/chat.service'
 import {updateChat} from '../../services/chat.service'
 import ChatTextInputComponent from './chat_components/text_input'
 
@@ -10,7 +9,6 @@ interface chatMessageInterface {
 }
 
 function WebsocketChatComponent() {
-  // const [message, setMessage] = useState('')
   const [chatMessages, updateChatMessages]=useState<chatMessageInterface[]>([])
   const [chatIDs, updateChatIDs] = useState<number[]>([])
   const {user} = useAppSelector((state) => state.user)
@@ -19,22 +17,19 @@ function WebsocketChatComponent() {
   useEffect(() => {
     updateChat(chatIDs)
         .then((res) => {
-          console.log('returned messages', res.data)
           storeChatMessages(res.data)
         })
   }, [])
 
+  // On another user messaging, call API
   useEffect(() => {
     const socket = socketIOClient('')
     socket.on('test message', (data) => {
-      console.log(data)
       updateChatItems()
     })
   }, [])
 
   function storeChatMessages(chatItems:chatMessageInterface[]) {
-    console.log('chatItems', chatItems)
-    console.log('chatMessages', chatMessages)
     const concatArray = filterDuplicates([...chatMessages, ...chatItems])
     updateChatMessages(concatArray)
     const idList:number[] = []
@@ -43,10 +38,7 @@ function WebsocketChatComponent() {
         idList.push(message.id)
       }
     })
-    console.log(idList)
     updateChatIDs(idList)
-
-    console.log(chatMessages)
   }
 
   function filterDuplicates(chatItems:chatMessageInterface[]) {
@@ -59,29 +51,9 @@ function WebsocketChatComponent() {
     return filteredArray
   }
 
-  // function submitChatItem() {
-  //   console.log('Submitting message: ', message)
-  //   submitChat({'message': message})
-  //       .then((res) => {
-  //         console.log(res)
-  //         const socket = socketIOClient('')
-  //         socket.emit('message_emit')
-  //       })
-  // }
-
-  // function getChatItems() {
-  //   getChat()
-  //       .then((res) => {
-  //         console.log(res.data)
-  //         storeChatMessages(res.data)
-  //       })
-  // }
-
   function updateChatItems() {
-    console.log('Chat IDs: ', chatIDs)
     updateChat(chatIDs)
         .then((res) => {
-          console.log('returned messages', res.data)
           storeChatMessages(res.data)
         })
   }
@@ -101,13 +73,6 @@ function WebsocketChatComponent() {
         ))}
       </ul>
       <ChatTextInputComponent />
-      {/* <input type='text' placeholder='Enter Text...'
-        defaultValue={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={() => submitChatItem()}>Submit</button>
-      <button onClick={() => getChatItems()}>Get Chat</button>
-      <button onClick={() => updateChatItems()}>Update Chat</button> */}
     </div>
   )
 }
