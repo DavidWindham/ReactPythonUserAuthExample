@@ -5,7 +5,6 @@
 .login_register_logout_parent{
   background-color:burlywood;
   padding: 1rem;
-  height: 20vh;
 }
 
 /* Login/Register grid */
@@ -83,28 +82,84 @@
   transition: all 300ms ease-out;
 }
 
+
+/* Chat component styles */
 .chat-parent {
-  margin-top: 1rem;
-  background-color: grey;
-  padding-left: 1em;
-  padding-right: 1em;
+  background-color: burlywood;
 }
 
 .chat-container {
-  background-color: white;
+  background-color: wheat;
+  padding-left: 0;
+  padding-right: 0;
+  height: 400px;
+  max-width: 600px;
+  margin: auto;
+  overflow-y: scroll;
+  border: solid 2px black;
 }
 
-.chat-message-container {
+.chat-li-container {
   list-style-type:none;
-  margin: 0.3rem;
-  padding-top: 1rem;
-  padding-bottom: 2rem;
+  max-width: 80%; 
+  clear:both;
+}
+
+.chat-username-container {
+  list-style-type:none;
+  padding: 2px 10px 2px;
+  margin: 3px 10px 0 10px;
+  border-radius: .5rem .5rem 0 0;
+  min-width: 100%; 
+  clear: both;
+}
+.chat-payload-container {
+  list-style-type:none;
+  padding: 10px 10px 12px;
+  margin: 0 10px 3px 10px;
+  border-radius: 0 0 .5rem .5rem;
+  min-width: 100%; 
+  clear: both;
+}
+
+.chat-message-container-left {
+  float: left;
+  /* padding-right: 100px; */
+  text-align: left;
+}
+
+.chat-username-left {
+  background-color: rgb(40, 245, 177);;
+}
+
+.chat-payload-left {
   background-color: aquamarine;
 }
-.chat-left {
+
+.chat-message-container-right {
   float: right;
+  /* padding-left: 100px; */
+  padding-right: 2.5rem;
+  text-align: right;
+}
+.chat-username-right {
+  background-color: rgb(151, 252, 0);
+}
+.chat-payload-right {
+  background-color: greenyellow;
 }
 
-.chat-right {
-  float: left;
+.chat-input-parent {
+  margin: auto;
+  max-width: 600px;
+  padding: 5px 0 10px 0
+}
+
+.chat-input-box {
+  width: calc(100% - 108px);
+  min-width: 200px;
+}
+
+.chat-submit-button {
+  width:100px;
 }

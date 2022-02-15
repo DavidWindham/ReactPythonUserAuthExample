@@ -12,15 +12,18 @@ function ChatTextInputComponent() {
           console.log(res)
           const socket = socketIOClient('')
           socket.emit('message_emit')
+          setMessage('')
         })
   }
   return (
-    <div>
-      <input type='text' placeholder='Enter Text...'
+    <div className='chat-input-parent'>
+      <input className='chat-input-box' type='text' placeholder='Enter Text...'
         defaultValue={message}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button onClick={() => submitChatItem()}>Submit</button>
+      <button className='chat-submit-button' onClick={() => submitChatItem()}>
+        Submit
+      </button>
     </div>
   )
 }

@@ -4,6 +4,8 @@ import {useAppSelector} from '../../hooks'
 import {updateChat} from '../../services/chat.service'
 import ChatTextInputComponent from './chat_components/text_input'
 import {chatMessageInterface} from '../../interfaces/chat.interfaces'
+import ClientMessageComponent from './chat_components/client_message'
+import NonClientMessageComponent from './chat_components/non_client_message'
 
 
 function WebsocketChatComponent() {
@@ -28,6 +30,8 @@ function WebsocketChatComponent() {
   }, [])
 
   function storeChatMessages(chatItems:chatMessageInterface[]) {
+    // Merges pre-existing messages with the new incoming messages
+    // There's a chance of duplicates, so those are filtered off
     const concatArray = filterDuplicates([...chatMessages, ...chatItems])
     updateChatMessages(concatArray)
     const idList:number[] = []
@@ -60,12 +64,12 @@ function WebsocketChatComponent() {
       <ul className='chat-container '>
         {chatMessages.map((e) => (
           user.username === e.username ?
-            <li className='chat-message-container'>
-              <div className='chat-left'>{e.username} - {e.message}</div>
-            </li> :
-          <li className='chat-message-container'>
-            <div className='chat-right'>{e.username} - {e.message}</div>
-          </li>
+          <div>
+            <ClientMessageComponent message={e}/>
+          </div>:
+          <div>
+            <NonClientMessageComponent message={e} />
+          </div>
         ))}
       </ul>
       <ChatTextInputComponent />
