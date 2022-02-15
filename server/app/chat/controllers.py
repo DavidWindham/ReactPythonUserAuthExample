@@ -14,7 +14,6 @@ def get_chat_items():
     chat_items = ChatItem.query.order_by(ChatItem.timestamp.desc()).limit(5).all()
     # Serializes the chat items, removes unserializable content
     chat_items_out = [chat_item.serialize() for chat_item in chat_items]
-    #chat_items_out = {x.id: x.serialize() for x in chat_items}
     return jsonify(chat_items_out)
 
 
@@ -26,10 +25,6 @@ def update_chat_items():
     chat_items = ChatItem.query.order_by(ChatItem.timestamp.desc()).limit(5).all()
     # Filters out the messages that are already present, will be costly for large number of messages
     chat_items_out = [x.serialize() for x in chat_items if x.id not in passed_id_list]
-    print(passed_id_list)
-    print(chat_items_out)
-    # chat_dict = {x.id: x.serialize() for x in chat_items if x.id not in passed_id_list}
-    # print(chat_dict)
     return jsonify(chat_items_out)
 
 

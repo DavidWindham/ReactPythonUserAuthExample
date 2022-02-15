@@ -4,8 +4,7 @@ import {useAppSelector} from '../../hooks'
 import {updateChat} from '../../services/chat.service'
 import ChatTextInputComponent from './chat_components/text_input'
 import {chatMessageInterface} from '../../interfaces/chat.interfaces'
-import ClientMessageComponent from './chat_components/client_message'
-import NonClientMessageComponent from './chat_components/non_client_message'
+import MessageParentComponent from './chat_components/message.parent'
 
 
 function WebsocketChatComponent() {
@@ -33,7 +32,8 @@ function WebsocketChatComponent() {
     // Merges pre-existing messages with the new incoming messages
     // There's a chance of duplicates, so those are filtered off
     const concatArray = filterDuplicates([...chatMessages, ...chatItems])
-    updateChatMessages(concatArray)
+    const dateSortedArray = sortChatMessagesByDate(concatArray)
+    updateChatMessages(dateSortedArray)
     const idList:number[] = []
     chatItems.forEach(function(message: any) {
       idList.push(message.id)
@@ -51,6 +51,14 @@ function WebsocketChatComponent() {
     return filteredArray
   }
 
+  function sortChatMessagesByDate(chatItems:chatMessageInterface[]) {
+    return chatItems.sort(function(a:any, b:any) {
+      const aDate:any = new Date(a.timestamp)
+      const bDate:any = new Date(b.timestamp)
+      return aDate - bDate
+    })
+  }
+
   function updateChatItems() {
     updateChat(chatIDs)
         .then((res) => {
@@ -65,10 +73,10 @@ function WebsocketChatComponent() {
         {chatMessages.map((e) => (
           user.username === e.username ?
           <div>
-            <ClientMessageComponent message={e}/>
+            <MessageParentComponent message={e} owner={true} />
           </div>:
           <div>
-            <NonClientMessageComponent message={e} />
+            <MessageParentComponent message={e} owner={false} />
           </div>
         ))}
       </ul>
