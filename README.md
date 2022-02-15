@@ -3,11 +3,16 @@
 Features:
 
 * JWT implementation
-* Automatic Access Token refresh with a wrapper for axios
+* Automatic Access Token refresh with a wrapper for [axios](https://github.com/axios/axios)
 * TokenStorage class to handle JWT's
 * State Containers with Redux for frontend functionality
-* Basic animation with react-transition-group
+* Basic animation with [react-transition-group](https://github.com/reactjs/react-transition-group)
 * Moved to Typescript implementation, Javascript version is now depreciated in this repo
+* Persistent state with [redux-persist](https://github.com/rt2zz/redux-persist)
+* Shared state across multiple tabs with [redux-state-sync](https://github.com/aohua/redux-state-sync)
+* Websocket implementation with [SocketIO](https://github.com/socketio/socket.io) using a chat for an example
+  * No auth implementation on Websocket
+  * Socket broadcasts trigger an API call that ensures authentication
 
 ## Installation
 
@@ -39,8 +44,7 @@ Use the following to setup the flask environment
 
 ```
 export FLASK_APP=flask_app.py
-export FLASK_CONFIG=development
-export FLASK_DEBUG=1
+export FLASK_CONFIG=development   # or 'production' to setup production db
 ```
 
 Now, init the DB using the following (migrations and flask env are already part of the repo)
@@ -55,9 +59,9 @@ db.create_all()
 Now the DB has been initialized, you can now run the webserver with the following
 
 ```
-flask run --host=0.0.0.0 --port=5000
+python flask_app.py
 ```
 
-If you wish to change the port, you must also adjust the "proxy" field in the "client" part of this application, the proxy field is in the "package.json"
+If you wish to change the port (found in flask_app.py), you must also adjust the "proxy" field in the "client" part of this application, the proxy field is in the "package.json"
 
 The API is now functional
