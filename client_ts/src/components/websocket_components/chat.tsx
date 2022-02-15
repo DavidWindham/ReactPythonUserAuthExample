@@ -41,16 +41,8 @@ function WebsocketChatComponent() {
   }
 
   function filterDuplicates(chatItems:ChatMessages) {
-    // return [...new Map(chatItems.map((item: any) =>
-    //   [item.id, item])).values()]
-
-    const filteredArray = chatItems.filter((message, idx) => {
-      const jsonValue = JSON.stringify(message)
-      return idx === chatItems.findIndex((locMessage) => {
-        return JSON.stringify(locMessage) === jsonValue
-      })
-    })
-    return filteredArray
+    return [...new Map(chatItems.map((item: any) =>
+      [item.id, item])).values()]
   }
 
   function sortChatMessagesByDate(chatItems:ChatMessages) {
