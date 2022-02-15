@@ -6,6 +6,7 @@ import ChatTextInputComponent from './chat_components/text_input'
 import MessageParentComponent from './chat_components/message.parent'
 import {ChatMessages} from '../../interfaces/chat.interfaces'
 
+
 function WebsocketChatComponent() {
   const [chatMessages, updateChatMessages]=useState<ChatMessages>([])
   const [chatIDs, updateChatIDs] = useState<number[]>([])
