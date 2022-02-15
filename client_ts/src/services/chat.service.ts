@@ -1,9 +1,8 @@
 import Axios from './axios.service'
 import TokenStorage from './token.service'
-import {chatMessageInterface} from '../interfaces/chat.interfaces'
+import {ChatMessageToSend} from '../interfaces/chat.interfaces'
 
-
-export const submitChat = (chatMessage:chatMessageInterface) =>
+export const submitChat = (chatMessage:ChatMessageToSend) =>
   Axios
       .post(
           'submit_chat_item',

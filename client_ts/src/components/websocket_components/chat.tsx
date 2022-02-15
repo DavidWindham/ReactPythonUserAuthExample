@@ -3,12 +3,11 @@ import socketIOClient from 'socket.io-client'
 import {useAppSelector} from '../../hooks'
 import {updateChat} from '../../services/chat.service'
 import ChatTextInputComponent from './chat_components/text_input'
-import {chatMessageInterface} from '../../interfaces/chat.interfaces'
 import MessageParentComponent from './chat_components/message.parent'
-
+import {ChatMessages} from '../../interfaces/chat.interfaces'
 
 function WebsocketChatComponent() {
-  const [chatMessages, updateChatMessages]=useState<chatMessageInterface[]>([])
+  const [chatMessages, updateChatMessages]=useState<ChatMessages>([])
   const [chatIDs, updateChatIDs] = useState<number[]>([])
   const {user} = useAppSelector((state) => state.user)
 
@@ -28,7 +27,7 @@ function WebsocketChatComponent() {
     })
   }, [])
 
-  function storeChatMessages(chatItems:chatMessageInterface[]) {
+  function storeChatMessages(chatItems:ChatMessages) {
     // Merges pre-existing messages with the new incoming messages
     // There's a chance of duplicates, so those are filtered off
     const concatArray = filterDuplicates([...chatMessages, ...chatItems])
@@ -41,7 +40,7 @@ function WebsocketChatComponent() {
     updateChatIDs(idList)
   }
 
-  function filterDuplicates(chatItems:chatMessageInterface[]) {
+  function filterDuplicates(chatItems:ChatMessages) {
     // return [...new Map(chatItems.map((item: any) =>
     //   [item.id, item])).values()]
 
@@ -54,7 +53,7 @@ function WebsocketChatComponent() {
     return filteredArray
   }
 
-  function sortChatMessagesByDate(chatItems:chatMessageInterface[]) {
+  function sortChatMessagesByDate(chatItems:ChatMessages) {
     return chatItems.sort(function(a:any, b:any) {
       const aDate:any = new Date(a.timestamp)
       const bDate:any = new Date(b.timestamp)
