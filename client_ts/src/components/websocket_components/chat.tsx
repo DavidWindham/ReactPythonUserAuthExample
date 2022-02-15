@@ -20,10 +20,10 @@ function WebsocketChatComponent() {
         })
   }, [])
 
-  // On another user messaging, call API
+  // On another users successful message, call API
   useEffect(() => {
     const socket = socketIOClient('')
-    socket.on('test message', (data) => {
+    socket.on('new chat message ready', () => {
       updateChatItems()
     })
   }, [])
@@ -42,6 +42,9 @@ function WebsocketChatComponent() {
   }
 
   function filterDuplicates(chatItems:chatMessageInterface[]) {
+    // return [...new Map(chatItems.map((item: any) =>
+    //   [item.id, item])).values()]
+
     const filteredArray = chatItems.filter((message, idx) => {
       const jsonValue = JSON.stringify(message)
       return idx === chatItems.findIndex((locMessage) => {

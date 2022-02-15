@@ -24,7 +24,7 @@ def update_chat_items():
     passed_id_list = request.json.get("id_array")
     chat_items = ChatItem.query.order_by(ChatItem.timestamp.desc()).limit(5).all()
     # Filters out the messages that are already present, will be costly for large number of messages
-    chat_items_out = [x.serialize() for x in chat_items if x.id not in passed_id_list]
+    chat_items_out = [chat_item.serialize() for chat_item in chat_items if chat_item.id not in passed_id_list]
     return jsonify(chat_items_out)
 
 
@@ -37,6 +37,7 @@ def submit_chat_item():
 
     message = request.json.get("message")
     if message is None or message is "":
+        # TODO: This abort doesn't seem to prevent the websocket from firing on frontend
         abort(400, "Message is not set")
 
     user = User.query.filter_by(username=g.user).first()
@@ -50,9 +51,3 @@ def submit_chat_item():
     db.session.commit()
 
     return {"status": "success"}
-
-
-@chat.route("/get_chat_item", methods=["GET"])
-@auth_conf.login_required()
-def get_chat_item(item_id):
-    pass

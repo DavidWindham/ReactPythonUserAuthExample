@@ -9,7 +9,7 @@ function ChatTextInputComponent() {
     submitChat({'message': message})
         .then((res) => {
           const socket = socketIOClient('')
-          socket.emit('message_emit')
+          socket.emit('new_chat_message_added')
           setMessage('')
         })
   }

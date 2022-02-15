@@ -23,5 +23,11 @@ def create_app(config_name):
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(chat_blueprint)
 
-    socketio.init_app(app, cors_allowed_origins="*")
+    #   No socket logging
+    # socketio.init_app(app, cors_allowed_origins="*")
+    #   Basic socket connection logging
+    socketio.init_app(app, cors_allowed_origins="*", logger=True)
+    #   Verbose socket connection logging
+    # socketio.init_app(app, cors_allowed_origins="*", logger=True, engineio_logger=True)
+
     return app
