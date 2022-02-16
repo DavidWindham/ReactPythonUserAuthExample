@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import socketIOClient from 'socket.io-client'
-import {submitChat} from '../../../services/chat.service'
+import {submitChat} from '../../../../services/chat.service'
+import './text_input.scss'
+
 
 function ChatTextInputComponent() {
   const [message, setMessage] = useState('')
@@ -22,12 +24,12 @@ function ChatTextInputComponent() {
 
   return (
     <div className='chat-input-parent'>
-      <input className='chat-input-box' type='text' placeholder='Enter Text...'
+      <input className='input-box' type='text' placeholder='Enter Text...'
         value={message}
         onKeyDown={onKeyChange}
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button className='chat-submit-button' onClick={() => submitChatItem()}>
+      <button className='submit-button' onClick={() => submitChatItem()}>
         Submit
       </button>
     </div>

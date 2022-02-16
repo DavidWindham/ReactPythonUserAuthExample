@@ -3,9 +3,10 @@ import {protectedRoute} from '../services/user.service'
 import {logoutUser} from '../reducers/user_reducer/userSlice'
 import {useAppDispatch} from '../hooks'
 
+
 function ProtectedButton() {
   const [buttonColor, setButtonColor] = useState('grey')
-  // const {buttonColor} = useAppSelector((state) => state.buttonStatusReducer)
+
   const dispatch = useAppDispatch()
 
   const callProtectedRoute = () => {

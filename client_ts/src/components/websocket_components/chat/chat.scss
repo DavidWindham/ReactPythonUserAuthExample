@@ -1,0 +1,16 @@
+@import '../../../sass/variables';
+
+.chat-parent {
+    background-color: burlywood;
+  }
+  
+  .chat-container {
+    background-color: wheat;
+    padding-left: 0;
+    padding-right: 0;
+    height: 400px;
+    max-width: 600px;
+    margin: auto;
+    overflow-y: scroll;
+    border: solid 2px black;
+  }

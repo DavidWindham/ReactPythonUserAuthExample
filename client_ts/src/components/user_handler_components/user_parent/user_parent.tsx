@@ -1,7 +1,10 @@
 import React from 'react'
-import {useAppSelector} from '../../hooks'
-import LoginRegisterParentComponent from './login_register_parent'
-import Logout from './children/logout'
+import {useAppSelector} from '../../../hooks'
+import LoginRegisterParentComponent from
+  '../login_register_parent/login_register_parent'
+import Logout from '../children/logout/logout'
+import './user_parent.scss'
+
 
 function UserParent() {
   const {user} = useAppSelector((state) => state.user)

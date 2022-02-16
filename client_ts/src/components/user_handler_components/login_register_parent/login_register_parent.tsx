@@ -1,10 +1,11 @@
 import React from 'react'
-import {useAppSelector, useAppDispatch} from '../../hooks'
+import {useAppSelector, useAppDispatch} from '../../../hooks'
 import {setLogin, setRegister} from
-  '../../reducers/new_user_reducer/newUserSlice'
-import LoginComponent from './children/login'
-import RegisterComponent from './children/register'
+  '../../../reducers/new_user_reducer/newUserSlice'
+import LoginComponent from '../children/login/login'
+import RegisterComponent from '../children/register/register'
 import {CSSTransition} from 'react-transition-group'
+import './login_register_parent.scss'
 
 
 function LoginRegisterParentComponent() {
@@ -24,10 +25,10 @@ function LoginRegisterParentComponent() {
     <div>
       <button onClick={() => changeToLogin()}>Login</button>
       <button onClick={() => changeToRegister()}>Register</button>
-      <div className="grid_container">
+      <div className="login_register_container">
         <CSSTransition
           in={newUserState === 'LOGIN'}
-          timeout={300}
+          timeout={500}
           classNames='fade slide-left'
           unmountOnExit
         >
@@ -36,7 +37,7 @@ function LoginRegisterParentComponent() {
 
         <CSSTransition
           in={newUserState === 'REGISTER'}
-          timeout={300}
+          timeout={500}
           classNames='fade slide-right'
           unmountOnExit
         >

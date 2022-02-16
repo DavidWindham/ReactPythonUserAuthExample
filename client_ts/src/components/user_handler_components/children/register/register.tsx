@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {register} from '../../../services/user.service'
-import {useAppDispatch} from '../../../hooks'
-import TokenStorage from '../../../services/token.service'
-import {setUser} from '../../../reducers/user_reducer/userSlice'
+import {register} from '../../../../services/user.service'
+import {useAppDispatch} from '../../../../hooks'
+import TokenStorage from '../../../../services/token.service'
+import {setUser} from '../../../../reducers/user_reducer/userSlice'
+import './register.scss'
 
 
 function RegisterComponent() {
@@ -36,7 +37,7 @@ function RegisterComponent() {
   }
 
   return (
-    <div className='login_register'>
+    <div className='register_container'>
       <input placeholder="Username..." type="text"
         defaultValue={username}
         onChange={(e) => setUsername(e.target.value)} />

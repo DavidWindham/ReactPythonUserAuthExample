@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import ClientMessageComponent from './client_message'
-import NonClientMessageComponent from './non_client_message'
+import ClientMessageComponent from './messages/client_message'
+import NonClientMessageComponent from './messages/non_client_message'
 
 
 export default function MessageParentComponent(props:any) {

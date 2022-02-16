@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 // import {RootState} from '../../store'
-import {useAppDispatch} from '../../../hooks'
-import {setUser} from '../../../reducers/user_reducer/userSlice'
-import TokenStorage from '../../../services/token.service'
-import {login} from '../../../services/user.service'
+import {useAppDispatch} from '../../../../hooks'
+import {setUser} from '../../../../reducers/user_reducer/userSlice'
+import TokenStorage from '../../../../services/token.service'
+import {login} from '../../../../services/user.service'
+import './login.scss'
+
 
 function LoginComponent() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-
-  // const {user} = useAppSelector((state:RootState) => state.user)
 
   const dispatch = useAppDispatch()
 
@@ -34,7 +34,7 @@ function LoginComponent() {
   }
 
   return (
-    <div className="login_register">
+    <div className="login_container">
       <input placeholder="Username..."
         defaultValue={username}
         onChange={(e) => setUsername(e.target.value)} type="text"

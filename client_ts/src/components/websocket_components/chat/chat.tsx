@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import socketIOClient from 'socket.io-client'
-import {useAppSelector} from '../../hooks'
-import {updateChat} from '../../services/chat.service'
-import ChatTextInputComponent from './chat_components/text_input'
-import MessageParentComponent from './chat_components/message.parent'
-import {ChatMessages} from '../../interfaces/chat.interfaces'
+import {useAppSelector} from '../../../hooks'
+import {updateChat} from '../../../services/chat.service'
+import ChatTextInputComponent from '../chat_components/text_input/text_input'
+import MessageParentComponent from '../chat_components/message.parent'
+import {ChatMessages} from '../../../interfaces/chat.interfaces'
+import './chat.scss'
 
 
 function WebsocketChatComponent() {
