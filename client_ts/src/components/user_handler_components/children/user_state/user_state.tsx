@@ -1,6 +1,6 @@
 import React from 'react'
 import {useAppSelector} from '../../../../hooks'
-import '.user_state.scss'
+import './user_state.scss'
 
 
 function UserState() {
