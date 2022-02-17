@@ -1,4 +1,6 @@
+@import '../../../sass/variables';
+
 .login_register_logout_parent{
-  background-color:burlywood;
+  background-color: $color-background-secondary;
   padding: 1rem;
 }

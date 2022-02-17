@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import ClientMessageComponent from './messages/client_message'
-import NonClientMessageComponent from './messages/non_client_message'
+import MessageComponent from './messages/message'
 
 
 export default function MessageParentComponent(props:any) {
@@ -24,13 +23,15 @@ export default function MessageParentComponent(props:any) {
   return (
     (props.owner === true ?
         <div>
-          <ClientMessageComponent message={props.message}
-            timestamp={formattedDate}
+          <MessageComponent message={props.message}
+            userMessage={`${formattedDate} - You`}
+            messagePosition='right'
           />
         </div>:
         <div>
-          <NonClientMessageComponent message={props.message}
-            timestamp={formattedDate}
+          <MessageComponent message={props.message}
+            userMessage={`${props.message.username} - ${formattedDate}`}
+            messagePosition='left'
           />
         </div>
     )

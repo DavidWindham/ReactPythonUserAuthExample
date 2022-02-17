@@ -4,6 +4,7 @@
     list-style-type: none;
     max-width: 80%;
     clear: both;
+    // background-color: var(--bg-color-var-color);
 }
 
 .message-container {
@@ -15,26 +16,26 @@
         float: right;
         text-align: right;
     }
-    .username-container {
+    &-username {
         padding: 2px 10px 2px;
         margin: 3px 10px 0 10px;
         border-radius: .5rem .5rem 0 0;
         &.left {
-            background-color: rgb(40, 245, 177);
+            background-color: $color-message-username-nonclient;
         }
         &.right {
-            background-color: rgb(151, 252, 0);
+            background-color: $color-message-username-client;
         }
     }
-    .payload-container {
+    &-payload {
         padding: 10px 10px 12px;
         margin: 0 10px 3px 10px;
         border-radius: 0 0 .5rem .5rem;
         &.left {
-            background-color: aquamarine;
+            background-color: $color-message-payload-nonclient;
         }
         &.right {
-            background-color: greenyellow;
+            background-color: $color-message-payload-client;
         }
     }
 }
