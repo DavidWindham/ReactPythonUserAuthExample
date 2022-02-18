@@ -43,12 +43,14 @@ function WebsocketChatComponent() {
   }
 
   function filterDuplicates(chatItems:ChatMessages) {
-    return [...new Map(chatItems.map((item: any) =>
+    return [...new Map(chatItems.map((item: ChatMessage) =>
       [item.id, item])).values()]
   }
 
-  function sortChatMessagesByDate(chatItems:ChatMessages) {
-    return chatItems.sort(function(messageA:ChatMessage, messageB:ChatMessage) {
+  function sortChatMessagesByDate(chatItems: ChatMessages) {
+    return chatItems.sort(function(
+        messageA: ChatMessage, messageB: ChatMessage,
+    ) {
       const aDate:Date = new Date(messageA.timestamp)
       const bDate:Date = new Date(messageB.timestamp)
       return (aDate.getTime() - bDate.getTime())
