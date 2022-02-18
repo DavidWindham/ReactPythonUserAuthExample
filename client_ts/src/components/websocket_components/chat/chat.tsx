@@ -4,7 +4,7 @@ import {useAppSelector} from '../../../hooks'
 import {updateChat} from '../../../services/chat.service'
 import ChatTextInputComponent from '../chat_components/text_input/text_input'
 import MessageParentComponent from '../chat_components/message.parent'
-import {ChatMessages} from '../../../interfaces/chat.interfaces'
+import {ChatMessages, ChatMessage} from '../../../interfaces/chat.interfaces'
 import './chat.scss'
 
 
@@ -48,10 +48,10 @@ function WebsocketChatComponent() {
   }
 
   function sortChatMessagesByDate(chatItems:ChatMessages) {
-    return chatItems.sort(function(a:any, b:any) {
-      const aDate:any = new Date(a.timestamp)
-      const bDate:any = new Date(b.timestamp)
-      return aDate - bDate
+    return chatItems.sort(function(messageA:ChatMessage, messageB:ChatMessage) {
+      const aDate:Date = new Date(messageA.timestamp)
+      const bDate:Date = new Date(messageB.timestamp)
+      return (aDate.getTime() - bDate.getTime())
     })
   }
 
