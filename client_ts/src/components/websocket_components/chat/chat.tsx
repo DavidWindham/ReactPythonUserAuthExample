@@ -36,7 +36,7 @@ function WebsocketChatComponent() {
     const dateSortedArray = sortChatMessagesByDate(concatArray)
     updateChatMessages(dateSortedArray)
     const idList:number[] = []
-    chatItems.forEach(function(message: any) {
+    chatItems.forEach(function(message:ChatMessage) {
       idList.push(message.id)
     })
     updateChatIDs(idList)
