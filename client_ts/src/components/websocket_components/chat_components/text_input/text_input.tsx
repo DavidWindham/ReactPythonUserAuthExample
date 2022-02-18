@@ -16,7 +16,7 @@ function ChatTextInputComponent() {
         })
   }
 
-  const onKeyChange = (event:any) => {
+  const onKeyChange = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
       submitChatItem()
     }
