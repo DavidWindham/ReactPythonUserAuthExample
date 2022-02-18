@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react'
+import {ChatMessage} from '../../../interfaces/chat.interfaces'
 import MessageComponent from './messages/message'
 
 
-export default function MessageParentComponent(props:any) {
+export default function MessageParentComponent(props:{
+  message: ChatMessage,
+  owner:boolean
+}) {
   const [formattedDate, setFormattedDate] = useState<string>()
 
   useEffect(() => {
