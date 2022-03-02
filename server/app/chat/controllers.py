@@ -31,18 +31,12 @@ def update_chat_items():
 @chat.route("/submit_chat_item", methods=["POST"])
 @auth_conf.login_required()
 def submit_chat_item():
-    # Check likely not required, TODO: Determine removal
-    if g.user is None:
-        abort(400, "User is not set")
-
     message = request.json.get("message")
     if message is None or message is "":
         # TODO: This abort doesn't seem to prevent the websocket from firing on frontend
         abort(400, "Message is not set")
 
     user = User.query.filter_by(username=g.user).first()
-    if user is None:
-        abort(400, "User is not found")
 
     timestamp = datetime.datetime.now()
     new_chat_item = ChatItem(user=user, user_id=user.id, message=message, timestamp=timestamp)
