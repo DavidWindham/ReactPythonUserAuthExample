@@ -13,6 +13,7 @@ Features:
 * Websocket implementation with [SocketIO](https://github.com/socketio/socket.io) using a chat for an example
   * No auth implementation on Websocket
   * Socket broadcasts trigger an API call that ensures authentication
+* Backend testing
 
 ## Installation
 
@@ -65,3 +66,11 @@ python flask_app.py
 If you wish to change the port (found in flask_app.py), you must also adjust the "proxy" field in the "client" part of this application, the proxy field is in the "package.json"
 
 The API is now functional
+
+#### Testing
+To run unit tests and integration tests for the API, run the following commands in the "server" folder
+
+```
+export FLASK_APP=flask_app.py
+flask test --coverage
+```
