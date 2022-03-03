@@ -34,7 +34,7 @@ def login():
 
 @auth.route("/refresh_token", methods=["GET"])
 def refresh_access_token():
-    refresh_token = request.headers.get("Authorization")
+    refresh_token = request.headers.get("RefreshToken")
 
     try:
         data = refresh_jwt.loads(refresh_token)

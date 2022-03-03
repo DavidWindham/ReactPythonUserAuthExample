@@ -53,7 +53,7 @@ class AuthTestingParent(unittest.TestCase):
         return self.client.get(
             '/refresh_token',
             headers={
-                'Authorization': refresh_token
+                'RefreshToken': refresh_token
             }
         )
 

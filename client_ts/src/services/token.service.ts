@@ -50,7 +50,7 @@ export class TokenStorage {
           .get('/refresh_token', {
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
-              'Authorization': `${this.getRefreshToken()}`,
+              'RefreshToken': `${this.getRefreshToken()}`,
             },
           })
           .then((response) => {
