@@ -3,9 +3,8 @@ from .. import db
 from .models import ChatItem
 from ..auth.models import User
 from ..auth.conf import auth_conf
-from flask import request, abort, g
-from flask import jsonify, Response
-import datetime, json
+from flask import request, g, jsonify
+import datetime
 from ..error.classes import InvalidUsage
 
 @chat.route("/get_chat_items", methods=["GET"])

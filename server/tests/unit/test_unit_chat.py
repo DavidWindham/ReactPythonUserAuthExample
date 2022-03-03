@@ -1,6 +1,5 @@
 import unittest
 from app import create_app, db
-import json
 from app.chat.models import ChatItem
 from app.auth.models import User
 import datetime

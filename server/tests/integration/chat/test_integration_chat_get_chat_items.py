@@ -1,10 +1,3 @@
-import sys
-import unittest
-from flask import current_app
-from app import create_app, db
-from app.auth.models import User
-import json
-import jwt
 from chat_parent_class import ChatTestingParent
 
 
