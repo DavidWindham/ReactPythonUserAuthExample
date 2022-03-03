@@ -29,7 +29,6 @@ class User(db.Model):
     def generate_auth_token(self):
         return jwt.dumps({"username": self.username, "email": self.email})
 
-    # Generates new access token from refresh token
     @staticmethod
     @auth_conf.verify_token
     def verify_auth_token(token):
