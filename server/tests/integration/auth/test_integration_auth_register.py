@@ -21,6 +21,46 @@ class UserRegistrationTestCase(AuthTestingParent):
         decoded_token = jwt.decode(refresh_token, options={"verify_signature": False})
         self.assertTrue(decoded_token['username'] == 'username')
 
+    def test_username_is_blank(self):
+        response_to_test = self.registerUser(
+            username='',
+            password='password',
+            email='email@email.com',
+            nickname='nickname'
+        )
+        self.assertTrue(response_to_test.status_code, 400)
+        self.assertTrue(response_to_test.json['description'] == "Username is invalid")
+
+    def test_password_is_blank(self):
+        response_to_test = self.registerUser(
+            username='username',
+            password='',
+            email='email@email.com',
+            nickname='nickname'
+        )
+        self.assertTrue(response_to_test.status_code, 400)
+        self.assertTrue(response_to_test.json['description'] == "Password is invalid")
+
+    def test_email_is_blank(self):
+        response_to_test = self.registerUser(
+            username='username',
+            password='password',
+            email='',
+            nickname='nickname'
+        )
+        self.assertTrue(response_to_test.status_code, 400)
+        self.assertTrue(response_to_test.json['description'] == "Email is invalid")
+
+    def test_nickname_is_blank(self):
+        response_to_test = self.registerUser(
+            username='username',
+            password='password',
+            email='email@email.com',
+            nickname=''
+        )
+        self.assertTrue(response_to_test.status_code, 400)
+        self.assertTrue(response_to_test.json['description'] == "Nickname is invalid")
+
     def test_register_two_identical_usernames(self):
         user_one_test = self.registerUser(
             username='same_username',

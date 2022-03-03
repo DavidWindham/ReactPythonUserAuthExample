@@ -19,9 +19,11 @@ def create_app(config_name):
 
     from .auth import auth as auth_blueprint
     from .chat import chat as chat_blueprint
+    from .error import error as error_blueprint
 
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(chat_blueprint)
+    app.register_blueprint(error_blueprint)
 
     #   No socket logging
     # socketio.init_app(app, cors_allowed_origins="*")

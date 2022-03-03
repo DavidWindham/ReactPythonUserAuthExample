@@ -4,9 +4,9 @@ from .models import ChatItem
 from ..auth.models import User
 from ..auth.conf import auth_conf
 from flask import request, abort, g
-from flask import jsonify
-import datetime
-
+from flask import jsonify, Response
+import datetime, json
+from ..error.classes import InvalidUsage
 
 @chat.route("/get_chat_items", methods=["GET"])
 @auth_conf.login_required()
@@ -33,8 +33,7 @@ def update_chat_items():
 def submit_chat_item():
     message = request.json.get("message")
     if message is None or message is "":
-        # TODO: This abort doesn't seem to prevent the websocket from firing on frontend
-        abort(400, "Message is not set")
+        raise(InvalidUsage('Message is not set', status_code=400))
 
     user = User.query.filter_by(username=g.user).first()
 
@@ -44,4 +43,4 @@ def submit_chat_item():
     db.session.add(new_chat_item)
     db.session.commit()
 
-    return {"status": "success"}
+    return {"description": "success"}

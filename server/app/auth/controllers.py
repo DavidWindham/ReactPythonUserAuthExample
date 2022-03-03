@@ -3,7 +3,7 @@ from .. import db
 from .models import User, RefreshTokenBlacklist
 from flask import request, abort, g
 from .conf import refresh_jwt, auth_conf
-
+from ..error.classes import InvalidUsage
 
 @auth.route("/login", methods=["POST"])
 def login():
@@ -13,15 +13,15 @@ def login():
     )
 
     if username is None or password is None:
-        abort(400, "Invalid Inputs")
+        raise (InvalidUsage('Username or Password not set', status_code=400))
 
     user = User.query.filter_by(username=username).first()
 
     if user is None:
-        abort(400, "Username not found")
+        raise (InvalidUsage('Username not found', status_code=400))
 
     if not user.validate_password(password):
-        abort(400, "Incorrect Password")
+        raise (InvalidUsage('Password not found', status_code=400))
 
     access_token = user.generate_auth_token()
     refresh_token = refresh_jwt.dumps({"username": username})
@@ -40,14 +40,14 @@ def refresh_access_token():
         data = refresh_jwt.loads(refresh_token)
     except Exception as why:
         print("Errored on refresh token", why)
-        abort(400)
+        raise (InvalidUsage('Token refresh error', status_code=400))
 
     blacklist_token_check = RefreshTokenBlacklist.query.filter_by(
         refresh_token=refresh_token
     ).first()
 
     if blacklist_token_check is not None:
-        abort(400, "Token has been invalidated")
+        raise (InvalidUsage('Token is blacklisted', status_code=400))
 
     user = User(username=data["username"])
     refreshed_access_token = user.generate_auth_token()
@@ -64,7 +64,7 @@ def logout():
 
     # If token is already been placed on blacklist
     if token_blacklist_if_already_blacklisted is not None:
-        abort(400, "Token already invalidated")
+        raise (InvalidUsage('Token already blacklisted', status_code=400))
 
     blacklist_refresh_token = RefreshTokenBlacklist(refresh_token=refresh_token)
 
@@ -80,8 +80,14 @@ def register():
     email = request.json.get("email")
     nickname = request.json.get("nickname")
 
-    if username == "" or password == "" or email == "" or nickname == "":
-        abort(400)
+    if username == "":
+        raise (InvalidUsage('Username is invalid', status_code=400))
+    if password == "":
+        raise (InvalidUsage('Password is invalid', status_code=400))
+    if email == "":
+        raise (InvalidUsage('Email is invalid', status_code=400))
+    if nickname == "":
+        raise (InvalidUsage('Nickname is invalid', status_code=400))
 
     u = User()
     u.username = username

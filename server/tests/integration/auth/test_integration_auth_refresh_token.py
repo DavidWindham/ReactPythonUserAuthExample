@@ -19,6 +19,7 @@ class RefreshTokenTestCase(AuthTestingParent):
         test_encoded_token = jwt.encode({"username": "test"}, key='', algorithm="HS512")
         test_response = self.getAccessToken(refresh_token=test_encoded_token)
         self.assertTrue(test_response.status_code == 400)
+        self.assertTrue(test_response.json['description'] == "Token refresh error")
 
     def test_blacklisted_refresh_token(self):
         register_response = self.registerUser(
@@ -32,6 +33,7 @@ class RefreshTokenTestCase(AuthTestingParent):
         self.logoutUser(access_token=access_token, refresh_token=refresh_token)
         test_response = self.getAccessToken(refresh_token=refresh_token)
         self.assertTrue(test_response.status_code == 400)
+        self.assertTrue(test_response.json['description'] == "Token is blacklisted")
 
     def test_expired_refresh_token(self):
         # This cannot be done with the current structure
