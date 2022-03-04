@@ -25,7 +25,6 @@ class User(db.Model):
     def validate_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    # Generates the auth token
     def generate_auth_token(self):
         return jwt.dumps({"username": self.username, "email": self.email})
 
