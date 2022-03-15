@@ -11,9 +11,12 @@ export const newUserSlice = createSlice({
     setRegister: (state) => {
       state.newUserState = 'REGISTER'
     },
+    setForgot: (state) => {
+      state.newUserState = 'FORGOT'
+    },
   },
 })
 
-export const {setLogin, setRegister} = newUserSlice.actions
+export const {setLogin, setRegister, setForgot} = newUserSlice.actions
 
 export default newUserSlice.reducer

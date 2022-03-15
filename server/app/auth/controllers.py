@@ -1,9 +1,10 @@
 from . import auth
 from .. import db
 from .models import User, RefreshTokenBlacklist
-from flask import request
+from flask import request, g
 from .conf import refresh_jwt, auth_conf
 from ..error.classes import InvalidUsage
+
 
 @auth.route("/login", methods=["POST"])
 def login():
@@ -105,6 +106,36 @@ def register():
         "access_token": access_token.decode(),
         "refresh_token": refresh_token.decode(),
     }
+
+
+@auth.route("/change_password", methods=["POST"])
+@auth_conf.login_required()
+def change_password():
+    old_password = request.json.get("oldPassword")
+    new_password = request.json.get("newPassword")
+    if old_password == "" or old_password is None:
+        raise (InvalidUsage('Old password is not set', status_code=400))
+    if new_password == "" or new_password is None:
+        raise (InvalidUsage('New password is not set', status_code=400))
+
+    user = User.query.filter_by(username=g.user).first()
+    print(user)
+    print(user.username)
+
+    if user.validate_password(old_password):
+        print("Password was validated")
+        print("Password to send: ", new_password)
+        user.password = new_password
+        print("Password changed")
+        db.session.commit()
+        return {"status": "password change successful"}
+    print("Password was invalid")
+    raise (InvalidUsage('Incorrect old password', status_code=400))
+
+
+@auth.route("/forgot_password", methods=["GET"])
+def forgot_password():
+    pass
 
 
 @auth.route("/protected", methods=["GET"])

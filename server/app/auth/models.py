@@ -20,6 +20,8 @@ class User(db.Model):
 
     @password.setter
     def password(self, password):
+        print("In model, in password function")
+        print(password)
         self.password_hash = generate_password_hash(password)
 
     def validate_password(self, password):
@@ -45,6 +47,12 @@ class User(db.Model):
             return True
 
         return False
+
+    def change_password(self):
+        pass
+
+    def forgot_password(self):
+        pass
 
 
 class RefreshTokenBlacklist(db.Model):

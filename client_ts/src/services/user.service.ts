@@ -29,6 +29,23 @@ export const logout = () =>
           },
       )
 
+export const changePassword = (changePasswordUserObj:userObject) =>
+  Axios
+      .post(
+          'change_password',
+          changePasswordUserObj,
+          {
+            headers: TokenStorage.getAuthenticationAndRefresh().headers,
+          },
+      )
+
+export const forgotPassword = (forgotUserObj:userObject) =>
+  Axios
+      .post(
+          'forgot',
+          forgotUserObj,
+      )
+
 export const protectedRoute = () =>
   Axios
       .get(
