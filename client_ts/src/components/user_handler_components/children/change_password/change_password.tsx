@@ -1,8 +1,4 @@
 import React, {useState} from 'react'
-// import {RootState} from '../../store'
-// import {useAppDispatch} from '../../../../hooks'
-// import {setUser} from '../../../../reducers/user_reducer/userSlice'
-import TokenStorage from '../../../../services/token.service'
 import {changePassword} from '../../../../services/user.service'
 import './change_password.scss'
 
@@ -11,7 +7,7 @@ function ChangePasswordComponent() {
   const [oldPassword, setOldPassword] = useState('')
   const [newPassword, setNewPassword] = useState('')
 
-  // const dispatch = useAppDispatch()
+  const [statusClass, setStatusClass] = useState('')
 
   const handleForgottenPassword = () => {
     const userObj = {
@@ -21,29 +17,44 @@ function ChangePasswordComponent() {
 
     changePassword(userObj)
         .then((res)=>{
-          TokenStorage.storeTokens(res.data)
-          setForgotSubmitSuccess()
+          setOldPassword('')
+          setNewPassword('')
+          setPasswordChangeSuccess()
         })
         .catch((error) => {
-          console.log('Error caught in login: ', error)
+          setPasswordChangeFail()
+          console.log('Error caught in change password: ', error)
         })
   }
 
-  const setForgotSubmitSuccess = () => {
-    // dispatch(setUser({username: username}))
+  const setPasswordChangeFail = () => {
+    setStatusClass('changeFail')
+    setTimeout(setPasswordChangeNeutral, 1000)
+  }
+
+  const setPasswordChangeSuccess = () => {
+    setStatusClass('changeSuccess')
+    setTimeout(setPasswordChangeNeutral, 1000)
+  }
+
+  const setPasswordChangeNeutral = () => {
+    setStatusClass('changeNeutral')
   }
 
   return (
     <div className="forgotten_password_container">
       <input placeholder="Old password..."
-        defaultValue={oldPassword}
+        value={oldPassword}
         onChange={(e) => setOldPassword(e.target.value)} type="password"
       />
       <input placeholder="New password..."
-        defaultValue={newPassword}
+        value={newPassword}
         onChange={(e) => setNewPassword(e.target.value)} type="password"
       />
-      <button onClick={() => handleForgottenPassword()}>Change Password</button>
+      <button className={statusClass}
+        onClick={() => handleForgottenPassword()}>
+          Change Password
+      </button>
 
     </div>
   )

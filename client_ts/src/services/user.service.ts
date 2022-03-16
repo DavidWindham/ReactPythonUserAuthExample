@@ -42,7 +42,7 @@ export const changePassword = (changePasswordUserObj:userObject) =>
 export const forgotPassword = (forgotUserObj:userObject) =>
   Axios
       .post(
-          'forgot',
+          'forgot_password',
           forgotUserObj,
       )
 

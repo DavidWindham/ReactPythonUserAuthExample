@@ -129,6 +129,7 @@ def change_password():
         print("Password changed")
         db.session.commit()
         return {"status": "password change successful"}
+
     print("Password was invalid")
     raise (InvalidUsage('Incorrect old password', status_code=400))
 
