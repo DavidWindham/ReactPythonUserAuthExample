@@ -11,6 +11,7 @@ function ForgotPasswordComponent() {
   const [resetField, setResetField] = useState(false)
   const [resetToken, setResetToken] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [statusClass, setStatusClass] = useState('changeNeutral')
   const dispatch = useAppDispatch()
 
   const handleForgottenPassword = () => {
@@ -26,7 +27,8 @@ function ForgotPasswordComponent() {
           setResetToken(res.data.token)
         })
         .catch((error) => {
-          console.log('Error caught in login: ', error)
+          setPasswordChangeFail()
+          console.log('Error caught in forgotten password: ', error)
         })
   }
 
@@ -41,16 +43,37 @@ function ForgotPasswordComponent() {
     resetPassword(resetObj)
         .then((res)=>{
           console.log(res)
+          setPasswordChangeSuccess()
           dispatch(setLogin())
         })
         .catch((error) => {
           console.log('Error', error)
+          setPasswordChangeFail()
         })
+  }
+
+  const setPasswordChangeFail = () => {
+    setStatusClass('changeFail')
+    setTimeout(setPasswordChangeNeutral, 1000)
+  }
+
+  const setPasswordChangeSuccess = () => {
+    setStatusClass('changeSuccess')
+    setTimeout(setPasswordChangeNeutral, 1000)
+  }
+
+  const setPasswordChangeNeutral = () => {
+    setStatusClass('changeNeutral')
   }
 
   const resetPasswordField = () => {
     if (!resetField) {
-      return (<button onClick={() => handleForgottenPassword()}>Forgot</button>)
+      return (
+        <button className={statusClass}
+          onClick={() => handleForgottenPassword()}>
+        Forgot
+        </button>
+      )
     }
     return (
       <>
@@ -62,7 +85,9 @@ function ForgotPasswordComponent() {
           defaultValue={newPassword}
           onChange={(e) => setNewPassword(e.target.value)} type="text"
         />
-        <button onClick={() => handleResetPassword()}>Reset</button>
+        <button className={statusClass} onClick={() => handleResetPassword()}>
+          Reset
+        </button>
       </>
     )
   }

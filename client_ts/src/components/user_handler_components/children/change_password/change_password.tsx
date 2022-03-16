@@ -42,7 +42,7 @@ function ChangePasswordComponent() {
   }
 
   return (
-    <div className="forgotten_password_container">
+    <div className="change_password_container">
       <input placeholder="Old password..."
         value={oldPassword}
         onChange={(e) => setOldPassword(e.target.value)} type="password"
