@@ -59,3 +59,13 @@ class RefreshTokenBlacklist(db.Model):
     __tablename__ = "refresh_token_blacklist"
     id = db.Column(db.Integer, primary_key=True)
     refresh_token = db.Column(db.String(255))
+
+
+class ForgotPasswordToken(db.Model):
+    __tablename__ = "forgot_password_token"
+    id = db.Column(db.Integer, primary_key=True)
+    token = db.Column(db.String(255), nullable=False)
+    expiry_date_time = db.Column(db.DateTime, nullable=False)
+    used = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship("User")

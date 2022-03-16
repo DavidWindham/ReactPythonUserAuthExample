@@ -1,8 +1,10 @@
+import datetime
+
 from . import auth
 from .. import db
-from .models import User, RefreshTokenBlacklist
+from .models import User, RefreshTokenBlacklist, ForgotPasswordToken
 from flask import request, g
-from .conf import refresh_jwt, auth_conf
+from .conf import refresh_jwt, auth_conf, reset_serializer
 from ..error.classes import InvalidUsage
 
 
@@ -119,24 +121,74 @@ def change_password():
         raise (InvalidUsage('New password is not set', status_code=400))
 
     user = User.query.filter_by(username=g.user).first()
-    print(user)
-    print(user.username)
-
+    print(user.username, user.email)
     if user.validate_password(old_password):
-        print("Password was validated")
-        print("Password to send: ", new_password)
         user.password = new_password
-        print("Password changed")
         db.session.commit()
         return {"status": "password change successful"}
 
-    print("Password was invalid")
     raise (InvalidUsage('Incorrect old password', status_code=400))
 
 
-@auth.route("/forgot_password", methods=["GET"])
-def forgot_password():
-    pass
+@auth.route("/forgot_password_request", methods=["POST"])
+def forgot_password_request():
+    username = request.json.get("username")
+    user_email = request.json.get("email")
+
+    if (user_email == "" or user_email is None) and (username == "" or username is None):
+        raise (InvalidUsage('Neither email nor username is not set', status_code=400))
+
+    if user_email == "":
+        user = User.query.filter_by(username=username).first()
+    else:
+        user = User.query.filter_by(email=user_email).first()
+
+    if user is None:
+        raise (InvalidUsage('User is not found', status_code=400))
+
+    token_expiry = datetime.datetime.now() + datetime.timedelta(minutes=1)
+    token_hash = reset_serializer.dumps(str(user.id) + str(token_expiry))
+    new_reset_token = ForgotPasswordToken(token=token_hash, expiry_date_time=token_expiry, user_id=user.id, user=user)
+    db.session.add(new_reset_token)
+    db.session.commit()
+
+    # TODO: Email(token) and remove from return for actual project
+
+    return {
+        "status": "forgot token sent",
+        "token": new_reset_token.token
+    }
+
+
+@auth.route("/forgot_password_change", methods=["POST"])
+def forgot_password_change():
+    username = request.json.get("username")
+    user_email = request.json.get("email")
+    reset_token = request.json.get("resetToken")
+    new_password = request.json.get("newPassword")
+
+    token = ForgotPasswordToken.query.filter_by(token=reset_token).first()
+
+    if token is None:
+        raise (InvalidUsage('Token is invalid', status_code=400))
+
+    if token.used:
+        raise (InvalidUsage('Token has been used', status_code=400))
+
+    if token.expiry_date_time < datetime.datetime.now():
+        raise (InvalidUsage('Token has expired', status_code=400))
+
+    token.used = True
+    db.session.commit()
+
+    if user_email == "":
+        user = User.query.filter_by(username=username).first()
+    else:
+        user = User.query.filter_by(email=user_email).first()
+    user.password = new_password
+    db.session.commit()
+
+    return {"status": "Password changed"}
 
 
 @auth.route("/protected", methods=["GET"])

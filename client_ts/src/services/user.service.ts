@@ -42,8 +42,15 @@ export const changePassword = (changePasswordUserObj:userObject) =>
 export const forgotPassword = (forgotUserObj:userObject) =>
   Axios
       .post(
-          'forgot_password',
+          'forgot_password_request',
           forgotUserObj,
+      )
+
+export const resetPassword = (resetPasswordObj:userObject) =>
+  Axios
+      .post(
+          'forgot_password_change',
+          resetPasswordObj,
       )
 
 export const protectedRoute = () =>

@@ -2,15 +2,16 @@ import React, {useState} from 'react'
 // import {RootState} from '../../store'
 // import {useAppDispatch} from '../../../../hooks'
 // import {setUser} from '../../../../reducers/user_reducer/userSlice'
-import TokenStorage from '../../../../services/token.service'
-import {forgotPassword} from '../../../../services/user.service'
+import {forgotPassword, resetPassword} from '../../../../services/user.service'
 import './forgot_password.scss'
 
 
 function ForgotPasswordComponent() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
-
+  const [resetField, setResetField] = useState(false)
+  const [resetToken, setResetToken] = useState('')
+  const [newPassword, setNewPassword] = useState('')
   // const dispatch = useAppDispatch()
 
   const handleForgottenPassword = () => {
@@ -21,16 +22,53 @@ function ForgotPasswordComponent() {
 
     forgotPassword(userObj)
         .then((res)=>{
-          TokenStorage.storeTokens(res.data)
-          setForgotSubmitSuccess()
+          setResetField(true)
+          // setResetToken(res.data.token)
+          console.log(res.data.token)
         })
         .catch((error) => {
           console.log('Error caught in login: ', error)
         })
   }
 
-  const setForgotSubmitSuccess = () => {
-    // dispatch(setUser({username: username}))
+  const handleResetPassword = () => {
+    const resetObj = {
+      username: username,
+      email: email,
+      resetToken: resetToken,
+      newPassword: newPassword,
+    }
+
+    resetPassword(resetObj)
+        .then((res)=>{
+          console.log(res)
+        })
+        .catch((error) => {
+          console.log('Error', error)
+        })
+  }
+
+  // const setForgotSubmitSuccess = () => {
+  //   // dispatch(setUser({username: username}))
+  // }
+
+  const resetPasswordField = () => {
+    if (!resetField) {
+      return (<button onClick={() => handleForgottenPassword()}>Forgot</button>)
+    }
+    return (
+      <>
+        <input placeholder="Token..."
+          defaultValue={username}
+          onChange={(e) => setResetToken(e.target.value)} type="text"
+        />
+        <input placeholder="Password..."
+          defaultValue={username}
+          onChange={(e) => setNewPassword(e.target.value)} type="text"
+        />
+        <button onClick={() => handleResetPassword()}>Reset</button>
+      </>
+    )
   }
 
   return (
@@ -43,8 +81,7 @@ function ForgotPasswordComponent() {
         defaultValue={email}
         onChange={(e) => setEmail(e.target.value)} type="email"
       />
-      <button onClick={() => handleForgottenPassword()}>Forgot</button>
-
+      {resetPasswordField()}
     </div>
   )
 }
