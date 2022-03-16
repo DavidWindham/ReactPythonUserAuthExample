@@ -20,8 +20,6 @@ class User(db.Model):
 
     @password.setter
     def password(self, password):
-        print("In model, in password function")
-        print(password)
         self.password_hash = generate_password_hash(password)
 
     def validate_password(self, password):

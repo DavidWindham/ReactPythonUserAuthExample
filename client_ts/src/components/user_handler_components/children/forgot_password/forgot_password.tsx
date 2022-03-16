@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-// import {RootState} from '../../store'
-// import {useAppDispatch} from '../../../../hooks'
-// import {setUser} from '../../../../reducers/user_reducer/userSlice'
+import {useAppDispatch} from '../../../../hooks'
+import {setLogin} from '../../../../reducers/new_user_reducer/newUserSlice'
 import {forgotPassword, resetPassword} from '../../../../services/user.service'
 import './forgot_password.scss'
 
@@ -12,7 +11,7 @@ function ForgotPasswordComponent() {
   const [resetField, setResetField] = useState(false)
   const [resetToken, setResetToken] = useState('')
   const [newPassword, setNewPassword] = useState('')
-  // const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
   const handleForgottenPassword = () => {
     const userObj = {
@@ -23,8 +22,8 @@ function ForgotPasswordComponent() {
     forgotPassword(userObj)
         .then((res)=>{
           setResetField(true)
-          // setResetToken(res.data.token)
-          console.log(res.data.token)
+          // TODO: Remove for actual project
+          setResetToken(res.data.token)
         })
         .catch((error) => {
           console.log('Error caught in login: ', error)
@@ -42,15 +41,12 @@ function ForgotPasswordComponent() {
     resetPassword(resetObj)
         .then((res)=>{
           console.log(res)
+          dispatch(setLogin())
         })
         .catch((error) => {
           console.log('Error', error)
         })
   }
-
-  // const setForgotSubmitSuccess = () => {
-  //   // dispatch(setUser({username: username}))
-  // }
 
   const resetPasswordField = () => {
     if (!resetField) {
@@ -59,11 +55,11 @@ function ForgotPasswordComponent() {
     return (
       <>
         <input placeholder="Token..."
-          defaultValue={username}
+          defaultValue={resetToken}
           onChange={(e) => setResetToken(e.target.value)} type="text"
         />
         <input placeholder="Password..."
-          defaultValue={username}
+          defaultValue={newPassword}
           onChange={(e) => setNewPassword(e.target.value)} type="text"
         />
         <button onClick={() => handleResetPassword()}>Reset</button>
