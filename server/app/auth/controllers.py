@@ -121,7 +121,6 @@ def change_password():
         raise (InvalidUsage('New password is not set', status_code=400))
 
     user = User.query.filter_by(username=g.user).first()
-    print(user.username, user.email)
     if user.validate_password(old_password):
         user.password = new_password
         db.session.commit()
