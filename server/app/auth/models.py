@@ -45,12 +45,6 @@ class User(db.Model):
 
         return False
 
-    def change_password(self):
-        pass
-
-    def forgot_password(self):
-        pass
-
 
 class RefreshTokenBlacklist(db.Model):
     __tablename__ = "refresh_token_blacklist"
