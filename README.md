@@ -13,6 +13,7 @@ Features:
 * Websocket implementation with [SocketIO](https://github.com/socketio/socket.io) using a chat for an example
   * No auth implementation on Websocket
   * Socket broadcasts trigger an API call that ensures authentication
+* Password change and faux-reset
 
 ## Installation
 
