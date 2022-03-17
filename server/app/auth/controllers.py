@@ -1,11 +1,10 @@
-import datetime
-
 from . import auth
 from .. import db
 from .models import User, RefreshTokenBlacklist, ForgotPasswordToken
 from flask import request, g
 from .conf import refresh_jwt, auth_conf, reset_serializer
 from ..error.classes import InvalidUsage
+import datetime
 
 
 @auth.route("/login", methods=["POST"])

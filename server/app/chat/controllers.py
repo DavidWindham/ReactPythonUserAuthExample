@@ -7,6 +7,7 @@ from flask import request, g, jsonify
 import datetime
 from ..error.classes import InvalidUsage
 
+
 @chat.route("/get_chat_items", methods=["GET"])
 @auth_conf.login_required()
 def get_chat_items():
@@ -32,7 +33,7 @@ def update_chat_items():
 def submit_chat_item():
     message = request.json.get("message")
     if message is None or message is "":
-        raise(InvalidUsage('Message is not set', status_code=400))
+        raise (InvalidUsage('Message is not set', status_code=400))
 
     user = User.query.filter_by(username=g.user).first()
 
