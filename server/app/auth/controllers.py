@@ -134,9 +134,9 @@ def forgot_password_request():
     user_email = request.json.get("email")
 
     if (user_email == "" or user_email is None) and (username == "" or username is None):
-        raise (InvalidUsage('Neither email nor username is not set', status_code=400))
+        raise (InvalidUsage('Neither email nor username are set', status_code=400))
 
-    if user_email == "":
+    if user_email == "" or user_email is None:
         user = User.query.filter_by(username=username).first()
     else:
         user = User.query.filter_by(email=user_email).first()
@@ -176,13 +176,16 @@ def forgot_password_change():
     if token.expiry_date_time < datetime.datetime.now():
         raise (InvalidUsage('Token has expired', status_code=400))
 
+    user = token.user
+    if user.username != username and user.email != user_email:
+        raise (InvalidUsage('User credentials are invalid', status_code=400))
+
+    if new_password is None or new_password == '':
+        raise (InvalidUsage('New password is invalid', status_code=400))
+
     token.used = True
     db.session.commit()
 
-    if user_email == "":
-        user = User.query.filter_by(username=username).first()
-    else:
-        user = User.query.filter_by(email=user_email).first()
     user.password = new_password
     db.session.commit()
 

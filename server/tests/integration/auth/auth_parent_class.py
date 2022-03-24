@@ -16,6 +16,10 @@ class AuthTestingParent(unittest.TestCase):
         db.drop_all()
         self.app_context.pop()
 
+    def wipeDB(self):
+        db.drop_all()
+        db.create_all()
+
     def registerUser(self, username, password, email, nickname):
         return self.client.post(
             '/register',
@@ -63,4 +67,34 @@ class AuthTestingParent(unittest.TestCase):
             headers={
                 'Authorization': 'Bearer ' + access_token
             }
+        )
+
+    def getRequest(self, url):
+        return self.client.get(
+            url
+        )
+
+    def postRequest(self, url, data):
+        return self.client.post(
+            url,
+            data=json.dumps(data),
+            content_type='application/json'
+        )
+
+    def getRequestAuthenticated(self, url, access_token):
+        return self.client.get(
+            url,
+            headers={
+                'Authorization': 'Bearer ' + access_token
+            }
+        )
+
+    def postRequestAuthenticated(self, url, data, access_token):
+        return self.client.post(
+            url,
+            data=json.dumps(data),
+            headers={
+                'Authorization': 'Bearer ' + access_token
+            },
+            content_type='application/json'
         )
