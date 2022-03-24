@@ -1,5 +1,6 @@
 from auth_parent_class import AuthTestingParent
 import jwt
+import json
 
 
 class UserLoginTestCase(AuthTestingParent):
@@ -98,3 +99,27 @@ class UserLoginTestCase(AuthTestingParent):
             access_token=new_access_token
         )
         self.assertTrue(response_to_protected_call.status_code == 200)
+
+    def test_username_is_none(self):
+        login_response = self.client.post(
+            '/login',
+            data=json.dumps(
+                {
+                    "password": self.password,
+                }),
+            content_type='application/json'
+        )
+        self.assertTrue(login_response.status_code == 400)
+        self.assertTrue(login_response.json['description'] == "Username or Password not set")
+
+    def test_password_is_none(self):
+        login_response = self.client.post(
+            '/login',
+            data=json.dumps(
+                {
+                    "username": self.username,
+                }),
+            content_type='application/json'
+        )
+        self.assertTrue(login_response.status_code == 400)
+        self.assertTrue(login_response.json['description'] == "Username or Password not set")
