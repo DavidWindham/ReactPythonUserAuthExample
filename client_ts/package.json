@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -53,6 +53,7 @@
     "@types/redux-state-sync": "^3.1.2",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
+    "cypress": "^9.5.3",
     "eslint": "^8.7.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.28.0",
