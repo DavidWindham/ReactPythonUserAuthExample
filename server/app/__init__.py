@@ -32,4 +32,7 @@ def create_app(config_name):
     #   Verbose socket connection logging
     # socketio.init_app(app, cors_allowed_origins="*", logger=True, engineio_logger=True)
 
+    with app.app_context():
+        db.create_all()
+        
     return app
