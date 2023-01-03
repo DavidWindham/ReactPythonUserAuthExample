@@ -47,7 +47,7 @@ export class TokenStorage {
     this.unload_old_access_token()
     return new Promise((resolve, reject) => {
       Axios
-          .get('/refresh_token', {
+          .get('auth/refresh_token', {
             headers: {
               'X-Requested-With': 'XMLHttpRequest',
               'RefreshToken': `${this.getRefreshToken()}`,

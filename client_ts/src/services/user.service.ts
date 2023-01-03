@@ -9,21 +9,21 @@ interface userObject {
 export const register = (registerUserObj:userObject) =>
   Axios
       .post(
-          'register',
+          'auth/register',
           registerUserObj,
       )
 
 export const login = (loginUserObj:userObject) =>
   Axios
       .post(
-          'login',
+          'auth/login',
           loginUserObj,
       )
 
 export const logout = () =>
   Axios
       .get(
-          'logout',
+          'auth/logout',
           {
             headers: TokenStorage.getAuthenticationAndRefresh().headers,
           },
@@ -32,7 +32,7 @@ export const logout = () =>
 export const changePassword = (changePasswordUserObj:userObject) =>
   Axios
       .post(
-          'change_password',
+          'auth/change_password',
           changePasswordUserObj,
           {
             headers: TokenStorage.getAuthenticationAndRefresh().headers,
@@ -42,21 +42,21 @@ export const changePassword = (changePasswordUserObj:userObject) =>
 export const forgotPassword = (forgotUserObj:userObject) =>
   Axios
       .post(
-          'forgot_password_request',
+          'auth/forgot_password_request',
           forgotUserObj,
       )
 
 export const resetPassword = (resetPasswordObj:userObject) =>
   Axios
       .post(
-          'forgot_password_change',
+          'auth/forgot_password_change',
           resetPasswordObj,
       )
 
 export const protectedRoute = () =>
   Axios
       .get(
-          'protected',
+          'auth/protected',
           {
             headers: TokenStorage.getAuthentication().headers,
           },
