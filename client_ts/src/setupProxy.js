@@ -2,7 +2,7 @@ const {createProxyMiddleware} = require('http-proxy-middleware')
 
 module.exports = function(app) {
   const authProxy = createProxyMiddleware('/auth', {
-    target: process.env.AUTH_PROXY_URL,
+    target: process.env.REACT_APP_AUTH_PROXY_URL,
     changeOrigin: true,
     pathRewrite: {
       '^/auth': '',
@@ -11,7 +11,7 @@ module.exports = function(app) {
   })
 
   const chatProxy = createProxyMiddleware('/chat', {
-    target: CHAT_PROXY_URL,
+    target: process.env.REACT_APP_CHAT_PROXY_URL,
     changeOrigin: true,
     pathRewrite: {
       '^/chat': '',
@@ -20,7 +20,7 @@ module.exports = function(app) {
   })
 
   const socketProxy= createProxyMiddleware('/socket.io', {
-    target: SOCKET_PROXY_URL,
+    target: process.env.REACT_APP_SOCKET_PROXY_URL,
     changeOrigin: true,
     ws: true,
     logLevel: 'debug',
