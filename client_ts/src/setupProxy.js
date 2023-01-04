@@ -2,7 +2,7 @@ const {createProxyMiddleware} = require('http-proxy-middleware')
 
 module.exports = function(app) {
   const authProxy = createProxyMiddleware('/auth', {
-    target: process.env.REACT_APP_AUTH_PROXY_URL,
+    target: 'http://flaskjwttest-env.eba-wngtss3f.eu-west-2.elasticbeanstalk.com',
     changeOrigin: true,
     pathRewrite: {
       '^/auth': '',
@@ -11,7 +11,7 @@ module.exports = function(app) {
   })
 
   const chatProxy = createProxyMiddleware('/chat', {
-    target: process.env.REACT_APP_CHAT_PROXY_URL,
+    target: 'http://flaskjwttest-env.eba-wngtss3f.eu-west-2.elasticbeanstalk.com',
     changeOrigin: true,
     pathRewrite: {
       '^/chat': '',
