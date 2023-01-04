@@ -8,7 +8,8 @@ import UserParent from
 import UserState from
   './components/user_handler_components/children/user_state/user_state'
 import ProtectedButton from './components/protected_route'
-import WebsocketChatComponent from './components/websocket_components/chat/chat'
+// eslint-disable-next-line max-len
+// import WebsocketChatComponent from './components/websocket_components/chat/chat'
 
 function App() {
   const getEnvVar = () => {
