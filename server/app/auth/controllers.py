@@ -192,7 +192,7 @@ def forgot_password_change():
     return {"status": "Password changed"}
 
 
-@auth.route("/protected", methods=["GET"])
+@auth.route("/protected", methods=["POST"])
 @auth_conf.login_required()
 def protected():
     print("Protected route has been accessed, user is authenticated")
