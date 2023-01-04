@@ -19,13 +19,13 @@ module.exports = function(app) {
     logLevel: 'debug',
   })
 
-  const socketProxy= createProxyMiddleware('/socket.io', {
-    target: process.env.REACT_APP_SOCKET_PROXY_URL,
-    changeOrigin: true,
-    ws: true,
-    logLevel: 'debug',
-  })
+  // const socketProxy= createProxyMiddleware('/socket.io', {
+  //   target: process.env.REACT_APP_SOCKET_PROXY_URL,
+  //   changeOrigin: true,
+  //   ws: true,
+  //   logLevel: 'debug',
+  // })
   app.use(authProxy)
   app.use(chatProxy)
-  app.use(socketProxy)
+  // app.use(socketProxy)
 }
