@@ -28,7 +28,7 @@ function App() {
       <UserParent/>
       <UserWrapper><UserState/></UserWrapper>
       <ProtectedButton/>
-      <UserWrapper><WebsocketChatComponent /></UserWrapper>
+      {/* <UserWrapper><WebsocketChatComponent /></UserWrapper> */}
     </div>
   )
 }

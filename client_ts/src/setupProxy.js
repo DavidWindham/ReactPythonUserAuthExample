@@ -25,7 +25,6 @@ module.exports = function(app) {
     ws: true,
     logLevel: 'debug',
   })
-
   app.use(authProxy)
   app.use(chatProxy)
   app.use(socketProxy)
