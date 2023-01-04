@@ -53,11 +53,13 @@ export const resetPassword = (resetPasswordObj:userObject) =>
           resetPasswordObj,
       )
 
-export const protectedRoute = () =>
-  Axios
+export const protectedRoute = () => {
+  console.log('Protected Route has been called')
+  return Axios
       .post(
           'auth/protected',
           {
             headers: TokenStorage.getAuthentication().headers,
           },
       )
+}
